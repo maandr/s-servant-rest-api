@@ -7,6 +7,6 @@ import Data.Aeson.Types ( ToJSON )
 
 data HelloMessage = HelloMessage {
     msg :: String
-} deriving Generic
+} deriving ( Generic )
 
 instance ToJSON HelloMessage

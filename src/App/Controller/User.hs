@@ -2,28 +2,41 @@
 {-# LANGUAGE TypeOperators #-}
 
 module App.Controller.User (
-        UserAPI
-        , getUsers
-        , getIsaac
-        , getAlbert
+          UserAPI
+        , userController
     ) where
 
+import Control.Monad.Trans.Either
 import App.Model.User
 import Servant
 
 type UserAPI = 
     -- GET /users
-    "users" :> Get '[JSON] [User]
+    Get '[JSON] [User]
     -- GET /users/albert
-    :<|> "users" :> "albert" :> Get '[JSON] User
+    :<|> "albert" :> Get '[JSON] User
     -- GET /users/isaac
-    :<|> "users" :> "isaac" :> Get '[JSON] User
+    :<|> "isaac" :> Get '[JSON] User
 
-getUsers :: [User]
-getUsers = [ getIsaac, getAlbert ]
+userController :: Server UserAPI
+userController = getUsers 
+    :<|> getAlbert 
+    :<|> getIsaac
 
-getIsaac :: User
-getIsaac = createUser "Isaac Newton" 372 "isaac@newton.co.uk" (1683, 3, 1)
+--getUsers :: [User]
+getUsers :: EitherT ServantErr IO [User]
+getUsers = [ isaac, albert ]
 
-getAlbert :: User
-getAlbert = createUser "Albert Einstein" 136 "ae@mc2.org" (1905, 12, 1)
+--getIsaac :: User
+getIsaac :: EitherT ServantErr IO User
+getIsaac = isaac
+
+--getAlbert :: User
+getAlbert :: EitherT ServantErr IO User
+getAlbert = albert
+
+isaac :: User
+isaac = createUser "Isaac Newton" 372 "isaac@newton.co.uk" (1683, 3, 1)
+
+albert :: User
+albert = createUser "Albert Einstein" 136 "ae@mc2.org" (1905, 12, 1)
