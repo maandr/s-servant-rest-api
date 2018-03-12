@@ -8,13 +8,16 @@ module App.Controller.User (
         , getAlbert
     ) where
 
-import App.Models.User
+import App.Model.User
 import Servant
 
--- GET /users?sortby={age, name}
-type UserAPI = "users" :> Get '[JSON] [User]
-    :<|> "albert" :> Get '[JSON] User
-    :<|> "isaac" :> Get ' [JSON] User
+type UserAPI = 
+    -- GET /users
+    "users" :> Get '[JSON] [User]
+    -- GET /users/albert
+    :<|> "users" :> "albert" :> Get '[JSON] User
+    -- GET /users/isaac
+    :<|> "users" :> "isaac" :> Get '[JSON] User
 
 getUsers :: [User]
 getUsers = [ getIsaac, getAlbert ]

@@ -1,6 +1,9 @@
+{-# LANGUAGE TypeOperators #-}
+
 module Server ( app ) where
 
 import App.Controller.User
+import App.Controller.Hello
 import Servant
 
 server :: Server UserAPI

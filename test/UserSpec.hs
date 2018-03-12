@@ -2,7 +2,7 @@
 
 module UserSpec where
 
-import App.Models.User
+import App.Model.User
 import Data.Time.Calendar ( fromGregorian )
 import Test.Hspec
 
@@ -10,7 +10,7 @@ spec :: Spec
 spec = do
 
     describe "createUser" $ do
-        it "should create a user instance" $ do
+        it "should create a User instance" $ do
             -- given + when
             let User{..} = createUser "Mats" 30 "mats@example.com" (1987, 23, 11)
 
