@@ -26,7 +26,7 @@ library:
   source-dirs: src
 
 executables:
-  s-servant-rest-api-exe:
+  s-servant-rest-api:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
@@ -46,3 +46,4 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - s-servant-rest-api
+    - hspec
