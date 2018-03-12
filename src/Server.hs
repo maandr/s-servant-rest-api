@@ -1,24 +1,8 @@
-{-# LANGUAGE DataKinds #-}
-{-# LANGUAGE TypeOperators #-}
-
 module Server ( app ) where
 
+import App.Models.User
+import App.Controller.User
 import Servant
-import App.Models.User ( User, createUser )
-
--- GET /users?sortby={age, name}
-type UserAPI = "users" :> Get '[JSON] [User]
-    :<|> "albert" :> Get '[JSON] User
-    :<|> "isaac" :> Get ' [JSON] User
-
-getUsers :: [User]
-getUsers = [ getIsaac, getAlbert ]
-
-getIsaac :: User
-getIsaac = createUser "Isaac Newton" 372 "isaac@newton.co.uk" (1683, 3, 1)
-
-getAlbert :: User
-getAlbert = createUser "Albert Einstein" 136 "ae@mc2.org" (1905, 12, 1)
 
 server :: Server UserAPI
 server = return getUsers
