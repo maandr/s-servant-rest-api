@@ -40,7 +40,7 @@ getIsaac = User "Isaac Newton" 372 "isaac@newton.co.uk" (fromGregorian 1683 3 1)
 getAlbert :: User
 getAlbert = User "Albert Einstein" 136 "ae@mc2.org" (fromGregorian 1905 12 1)
 
-server :: Server
+server :: Server UserAPI
 server = return getUsers
     :<|> return getAlbert
     :<|> return getIsaac
