@@ -1,6 +1,5 @@
 module Server ( app ) where
 
-import App.Models.User
 import App.Controller.User
 import Servant
 
