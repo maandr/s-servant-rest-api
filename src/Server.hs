@@ -10,35 +10,22 @@
 
 module Server ( app ) where
 
-import Data.Time.Calendar ( Day, fromGregorian )
-import Data.Aeson.Types ( ToJSON )
-import GHC.Generics ( Generic )
 import Servant
+import App.Models.User ( User, createUser )
 
 -- GET /users?sortby={age, name}
 type UserAPI = "users" :> Get '[JSON] [User]
     :<|> "albert" :> Get '[JSON] User
     :<|> "isaac" :> Get ' [JSON] User
 
-data SortBy = Age | Name
-
-data User = User {
-    name :: String,
-    age :: Int,
-    email :: String,
-    registration_date :: Day
-} deriving (Eq, Show, Generic)
-
-instance ToJSON User
-
 getUsers :: [User]
 getUsers = [ getIsaac, getAlbert ]
 
 getIsaac :: User
-getIsaac = User "Isaac Newton" 372 "isaac@newton.co.uk" (fromGregorian 1683 3 1)
+getIsaac = createUser "Isaac Newton" 372 "isaac@newton.co.uk" (1683, 3, 1)
 
 getAlbert :: User
-getAlbert = User "Albert Einstein" 136 "ae@mc2.org" (fromGregorian 1905 12 1)
+getAlbert = createUser "Albert Einstein" 136 "ae@mc2.org" (1905, 12, 1)
 
 server :: Server UserAPI
 server = return getUsers
