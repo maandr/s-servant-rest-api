@@ -10,15 +10,21 @@ import Data.Dictionary
 import Model.User
 import Servant
 
-type UserAPI = 
+type UserAPI =
+    -- POST /users
+    "users" :> ReqBody '[JSON] User :> Post '[JSON] User
     -- GET /users
-    "users" :> Get '[JSON] [User]
+    :<|> "users" :> Get '[JSON] [User]
     -- GET /users/:id
     :<|> "users" :> Capture "userId" Int :> Get '[JSON] User
 
 userController :: Server UserAPI
-userController = getUsers 
+userController = postUsers
+    :<|> getUsers 
     :<|> getUser
+
+postUsers :: User -> Handler User
+postUsers user = return user
 
 getUsers :: Handler [User]
 getUsers = return [ isaac, albert ]

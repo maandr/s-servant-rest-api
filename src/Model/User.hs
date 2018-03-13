@@ -7,7 +7,7 @@ module Model.User (
 
 import Data.Time.Calendar ( Day, fromGregorian )
 import GHC.Generics ( Generic )
-import Data.Aeson.Types ( ToJSON )
+import Data.Aeson.Types ( ToJSON, FromJSON )
 
 data User = User {
     name :: String,
@@ -17,6 +17,7 @@ data User = User {
 } deriving (Eq, Show, Generic)
 
 instance ToJSON User
+instance FromJSON User
 
 createUser :: String -> Int -> String -> (Integer, Int, Int) -> User
 createUser name age email (year, month, day) = User name age email $ fromGregorian year month day
