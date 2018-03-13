@@ -6,33 +6,39 @@ module Controller.User (
         , userController
     ) where
 
+import Data.Dictionary
 import Model.User
 import Servant
 
 type UserAPI = 
     -- GET /users
     "users" :> Get '[JSON] [User]
-    -- GET /users/albert
-    :<|> "users" :> "albert" :> Get '[JSON] User
-    -- GET /users/isaac
-    :<|> "users" :> "isaac" :> Get '[JSON] User
+    -- GET /users/:id
+    :<|> "users" :> Capture "userId" Int :> Get '[JSON] User
 
 userController :: Server UserAPI
-userController = return getUsers 
-    :<|> return getAlbert 
-    :<|> return getIsaac
+userController = getUsers 
+    :<|> getUser
 
-getUsers :: [User]
-getUsers = [ isaac, albert ]
+getUsers :: Handler [User]
+getUsers = return [ isaac, albert ]
 
-getIsaac :: User
-getIsaac = isaac
+getUser :: Int -> Handler User
+getUser userId = return user
+    where Just user = dictFind usersDict userId
 
-getAlbert :: User
-getAlbert = albert
+usersDict :: Dictionary Int User
+usersDict = Dictionary  [
+        (1, isaac),
+        (2, albert),
+        (3, leibniz)
+    ]
 
 isaac :: User
 isaac = createUser "Isaac Newton" 372 "isaac@newton.co.uk" (1683, 3, 1)
 
 albert :: User
 albert = createUser "Albert Einstein" 136 "ae@mc2.org" (1905, 12, 1)
+
+leibniz :: User
+leibniz = createUser "Gottfried Wilhelm Leibniz" 371 "mc_wilhelm@nur-echt-mit-42-zähnen.com" (1646, 7, 1)
