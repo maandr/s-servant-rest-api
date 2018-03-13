@@ -2,6 +2,7 @@ module Data.Dictionary (
       Dictionary(..)
     , dictSize
     , dictAdd
+    , dictRemove
     , dictFind
     , dictContains
     , dictMap
@@ -18,16 +19,15 @@ dictAdd (Dictionary dict) key value = Dictionary (dict ++ [(key, value)])
 
 dictRemove :: Eq key => Dictionary key value -> key -> Dictionary key value
 dictRemove (Dictionary []) _ = Dictionary []
-dictRemove dict removeKey = if dictContains dict removeKey
-    then dict
-    else dict
+dictRemove (Dictionary ((key, value):dict)) removeKey =
+    if key == removeKey
+    then Dictionary dict
+    else dictRemove (Dictionary (dict ++ [(key, value)])) removeKey
 
 dictContains :: Eq key => Dictionary key value -> key -> Bool
 dictContains (Dictionary []) _ = False
 dictContains (Dictionary ((key, value):dict)) searchKey =
-    if key == searchKey
-    then True
-    else dictContains (Dictionary dict) searchKey
+    key == searchKey || dictContains (Dictionary dict) searchKey
 
 -- Optional<V> dictFind(Dictionary<K, V> dict, K key)
 dictFind :: Eq key => Dictionary key value -> key -> Maybe value

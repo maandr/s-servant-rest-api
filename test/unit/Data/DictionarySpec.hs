@@ -36,6 +36,27 @@ spec = do
 
             -- then
             result `shouldBe` Dictionary [(1, "a"), (2, "b"), (3, "c"), (4, "d")]
+        
+    describe "dictRemove" $ do
+        it "should remove an entry from the passed dictionary" $ do
+            -- given
+            let dict = Dictionary [(1, "a"), (2, "b"), (3, "c"), (4, "d")] :: Dictionary Int String
+
+            -- when
+            let result = dictRemove dict 1
+
+            -- then
+            dictContains result 1 `shouldBe` False
+
+        it "should remove an entry from the passed dictionary" $ do
+            -- given
+            let dict = Dictionary [(1, "a"), (2, "b"), (3, "c"), (4, "d")] :: Dictionary Int String
+
+            -- when
+            let result = dictRemove dict 2
+
+            -- then
+            dictContains result 2 `shouldBe` False
 
     describe "dictContains" $ do
         it "should return true if an entry with the given key exists within the passed dictionary" $ do
