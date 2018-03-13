@@ -1,3 +1,4 @@
 .stack-work/
+.vscode/
 s-servant-rest-api.cabal
 *~
