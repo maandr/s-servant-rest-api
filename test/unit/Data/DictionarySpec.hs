@@ -1,4 +1,4 @@
-module DictionarySpec where
+module Unit.Data.DictionarySpec where
 
 import Data.Dictionary
 import Test.Hspec

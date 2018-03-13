@@ -1,6 +1,6 @@
 {-# LANGUAGE RecordWildCards #-}
 
-module UserSpec where
+module Unit.Model.UserSpec where
 
 import Model.User
 import Data.Time.Calendar ( fromGregorian )
@@ -18,4 +18,4 @@ spec = do
             name `shouldBe` "Mats"
             age `shouldBe` 30
             email `shouldBe`"mats@example.com"
-            registration_date `shouldBe` fromGregorian 1987 23 11
+            registrationDate `shouldBe` fromGregorian 1987 23 11

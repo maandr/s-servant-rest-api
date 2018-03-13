@@ -1,6 +1,6 @@
 {-# LANGUAGE RecordWildCards #-}
 
-module HelloSpec where
+module Unit.Model.HelloSpec where
 
 import Model.HelloMessage
 import Test.Hspec
