@@ -1,6 +1,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 
-module App.Model.User ( 
+module Model.User ( 
         User(..)
         , createUser 
     ) where

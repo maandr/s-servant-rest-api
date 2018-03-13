@@ -1,8 +1,8 @@
 module Server ( app ) where
 
-import App.API
-import App.Controller.User
-import App.Controller.Hello
+import API
+import Controller.User
+import Controller.Hello
 import Servant
 
 app :: Application

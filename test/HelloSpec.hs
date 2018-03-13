@@ -2,7 +2,7 @@
 
 module HelloSpec where
 
-import App.Model.HelloMessage
+import Model.HelloMessage
 import Test.Hspec
 
 spec :: Spec

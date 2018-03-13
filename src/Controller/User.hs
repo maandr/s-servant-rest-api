@@ -1,12 +1,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE TypeOperators #-}
 
-module App.Controller.User (
+module Controller.User (
           UserAPI
         , userController
     ) where
 
-import App.Model.User
+import Model.User
 import Servant
 
 type UserAPI = 

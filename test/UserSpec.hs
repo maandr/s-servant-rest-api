@@ -2,7 +2,7 @@
 
 module UserSpec where
 
-import App.Model.User
+import Model.User
 import Data.Time.Calendar ( fromGregorian )
 import Test.Hspec
 

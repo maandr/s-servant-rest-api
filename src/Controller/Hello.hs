@@ -1,12 +1,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE TypeOperators #-}
 
-module App.Controller.Hello (
+module Controller.Hello (
           HelloAPI
         , helloController
     ) where
 
-import App.Model.HelloMessage
+import Model.HelloMessage
 import Servant
 
 type HelloAPI = 

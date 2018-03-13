@@ -1,10 +1,10 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE TypeOperators #-}
 
-module App.API ( api, router ) where
+module API ( api, router ) where
 
-import App.Controller.User
-import App.Controller.Hello
+import Controller.User
+import Controller.Hello
 import Servant
 
 type API = UserAPI :<|> HelloAPI

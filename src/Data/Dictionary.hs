@@ -1,23 +1,41 @@
 module Data.Dictionary (
       Dictionary(..)
+    , dictSize
     , dictAdd
     , dictFind
+    , dictContains
     , dictMap
 ) where
 
 newtype Dictionary key value = Dictionary [(key, value)] deriving ( Show, Eq )
 
+dictSize :: Dictionary key value -> Int
+dictSize (Dictionary dict) = length dict
+
 -- Dictionary<K, V> dictAdd(Dictionary<K, V> dict, K key, V value)
 dictAdd :: Dictionary key value -> key -> value -> Dictionary key value
 dictAdd (Dictionary dict) key value = Dictionary (dict ++ [(key, value)])
 
+dictRemove :: Eq key => Dictionary key value -> key -> Dictionary key value
+dictRemove (Dictionary []) _ = Dictionary []
+dictRemove dict removeKey = if dictContains dict removeKey
+    then dict
+    else dict
+
+dictContains :: Eq key => Dictionary key value -> key -> Bool
+dictContains (Dictionary []) _ = False
+dictContains (Dictionary ((key, value):dict)) searchKey =
+    if key == searchKey
+    then True
+    else dictContains (Dictionary dict) searchKey
+
 -- Optional<V> dictFind(Dictionary<K, V> dict, K key)
 dictFind :: Eq key => Dictionary key value -> key -> Maybe value
 dictFind (Dictionary []) _ = Nothing
-dictFind (Dictionary ((key, value):dict)) search =
-    if search == key
+dictFind (Dictionary ((key, value):dict)) searchKey =
+    if key == searchKey
     then Just value
-    else dictFind (Dictionary dict) search
+    else dictFind (Dictionary dict) searchKey
 
 -- Dictionary<K, B> dictMap(Func<A, B> mapper, Dictionary<K, A> dict)
 dictMap :: (a -> b) -> Dictionary key a -> Dictionary key b
