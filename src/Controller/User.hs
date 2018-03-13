@@ -9,6 +9,7 @@ module Controller.User (
 import Data.Dictionary
 import Model.User
 import Servant
+import Servant.Server
 
 type UserAPI =
     -- POST /users
@@ -24,14 +25,15 @@ userController = postUsers
     :<|> getUser
 
 postUsers :: User -> Handler User
-postUsers user = return user
+postUsers = return
 
 getUsers :: Handler [User]
 getUsers = return [ isaac, albert ]
 
 getUser :: Int -> Handler User
-getUser userId = return user
-    where Just user = dictFind usersDict userId
+getUser userId = case dictFind usersDict userId of
+        Just user -> return user
+        Nothing -> throwError err404
 
 usersDict :: Dictionary Int User
 usersDict = Dictionary  [
