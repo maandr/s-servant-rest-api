@@ -3,7 +3,6 @@
 
 module App.Controller.User (
           UserAPI
-        , userAPI
         , userController
     ) where
 
@@ -22,9 +21,6 @@ userController :: Server UserAPI
 userController = return getUsers 
     :<|> return getAlbert 
     :<|> return getIsaac
-
-userAPI :: Proxy UserAPI
-userAPI = Proxy
 
 getUsers :: [User]
 getUsers = [ isaac, albert ]

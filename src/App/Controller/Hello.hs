@@ -3,7 +3,6 @@
 
 module App.Controller.Hello (
           HelloAPI
-        , helloAPI
         , helloController
     ) where
 
@@ -16,9 +15,6 @@ type HelloAPI =
 
 helloController :: Server HelloAPI
 helloController = return getHello
-
-helloAPI :: Proxy HelloAPI
-helloAPI = Proxy
 
 getHello :: HelloMessage
 getHello = HelloMessage "no-name"

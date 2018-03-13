@@ -6,4 +6,4 @@ import App.Controller.Hello
 import Servant
 
 app :: Application
-app = serve helloAPI helloController
+app = serve api router
