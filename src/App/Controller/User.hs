@@ -3,36 +3,36 @@
 
 module App.Controller.User (
           UserAPI
+        , userAPI
         , userController
     ) where
 
-import Control.Monad.Trans.Either
 import App.Model.User
 import Servant
 
 type UserAPI = 
     -- GET /users
-    Get '[JSON] [User]
+    "users" :> Get '[JSON] [User]
     -- GET /users/albert
-    :<|> "albert" :> Get '[JSON] User
+    :<|> "users" :> "albert" :> Get '[JSON] User
     -- GET /users/isaac
-    :<|> "isaac" :> Get '[JSON] User
+    :<|> "users" :> "isaac" :> Get '[JSON] User
 
 userController :: Server UserAPI
-userController = getUsers 
-    :<|> getAlbert 
-    :<|> getIsaac
+userController = return getUsers 
+    :<|> return getAlbert 
+    :<|> return getIsaac
 
---getUsers :: [User]
-getUsers :: EitherT ServantErr IO [User]
+userAPI :: Proxy UserAPI
+userAPI = Proxy
+
+getUsers :: [User]
 getUsers = [ isaac, albert ]
 
---getIsaac :: User
-getIsaac :: EitherT ServantErr IO User
+getIsaac :: User
 getIsaac = isaac
 
---getAlbert :: User
-getAlbert :: EitherT ServantErr IO User
+getAlbert :: User
 getAlbert = albert
 
 isaac :: User

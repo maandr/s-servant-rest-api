@@ -3,21 +3,22 @@
 
 module App.Controller.Hello (
           HelloAPI
+        , helloAPI
         , helloController
     ) where
 
-import Control.Monad.Trans.Either
 import App.Model.HelloMessage
 import Servant
 
 type HelloAPI = 
     -- GET /hello
-    Get '[JSON] HelloMessage
+    "hello" :>  Get '[JSON] HelloMessage
 
 helloController :: Server HelloAPI
-helloController = getHello
+helloController = return getHello
 
+helloAPI :: Proxy HelloAPI
+helloAPI = Proxy
 
---EitherT ServantErr IO [User]
-getHello :: EitherT ServantErr IO HelloMessage
+getHello :: HelloMessage
 getHello = HelloMessage "no-name"

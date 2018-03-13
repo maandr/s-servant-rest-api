@@ -26,7 +26,6 @@ dependencies:
 - aeson
 - warp
 - time
-- either
 
 library:
   source-dirs: src
