@@ -13,7 +13,7 @@ data User = User {
     name :: String,
     age :: Int,
     email :: String,
-    registration_date :: Day
+    registrationDate :: Day
 } deriving (Eq, Show, Generic)
 
 instance ToJSON User
